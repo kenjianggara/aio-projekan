@@ -27,6 +27,7 @@ services:
       - "127.0.0.1:5678:5678"
     labels:
       - traefik.enable=true
+      # kalo pake subdomain bisa di uncomment
 #      - traefik.http.routers.n8n.rule=Host(`${SUBDOMAIN}.${DOMAIN_NAME}`)
       - traefik.http.routers.n8n.rule=Host(`${DOMAIN_NAME}`)
       - traefik.http.routers.n8n.tls=true
@@ -38,17 +39,20 @@ services:
       - traefik.http.middlewares.n8n.headers.contentTypeNosniff=true
       - traefik.http.middlewares.n8n.headers.forceSTSHeader=true
       - traefik.http.middlewares.n8n.headers.SSLHost=${DOMAIN_NAME}
+      # kalo pake subdomain bisa di uncomment
 #      - traefik.http.middlewares.n8n.headers.STSIncludeSubdomains=true
       - traefik.http.middlewares.n8n.headers.STSPreload=true
       - traefik.http.routers.n8n.middlewares=n8n@docker
     environment:
       - N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS=true
+      # kalo pake subdomain bisa di uncomment
 #      - N8N_HOST=${SUBDOMAIN}.${DOMAIN_NAME}
       - N8N_HOST=${DOMAIN_NAME}
       - N8N_PORT=5678
       - N8N_PROTOCOL=https
       - N8N_RUNNERS_ENABLED=true
       - NODE_ENV=production
+      # kalo pake subdomain bisa ditambahin ${SUBDOMAIN}.
       - WEBHOOK_URL=https://${DOMAIN_NAME}/
       - GENERIC_TIMEZONE=${GENERIC_TIMEZONE}
       - TZ=${GENERIC_TIMEZONE}
