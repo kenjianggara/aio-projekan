@@ -8,7 +8,7 @@ services:
     ports:
       - "6969:80"
     networks:
-      - fadhelnet
+      - compose-net
 
   nginx-test-2:
     build:
@@ -19,7 +19,7 @@ services:
     ports:
       - "8080:80"
     networks:
-      - fadhelnet
+      - compose-net
 
   grafana:
     build:
@@ -36,7 +36,7 @@ services:
     volumes:
       - grafana-data:/var/lib/grafana
     networks:
-      - fadhelnet
+      - compose-net
 
 volumes:
   grafana-data:
