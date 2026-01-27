@@ -1,0 +1,45 @@
+services:
+  nginx-test:
+    build:
+      context: .
+      dockerfile: Dockerfile.nginx
+    image: nginx
+    container_name: nginx-test
+    ports:
+      - "6969:80"
+    networks:
+      - fadhelnet
+
+  nginx-test-2:
+    build:
+      context: .
+      dockerfile: Dockerfile.nginx
+    image: nginx
+    container_name: nginx-test-2
+    ports:
+      - "8080:80"
+    networks:
+      - fadhelnet
+
+  grafana:
+    build:
+      context: .
+      dockerfile: Dockerfile.grafana
+    image: grafana/grafana:latest
+    container_name: grafana
+    restart: unless-stopped
+    environment:
+      - GF_SERVER_ROOT_URL=%(protocol)s://%(domain)s/
+      - GF_SERVER_SERVE_FROM_SUB_PATH=false
+    ports:
+      - "3000:3000"
+    volumes:
+      - grafana-data:/var/lib/grafana
+    networks:
+      - fadhelnet
+
+volumes:
+  grafana-data:
+
+networks:
+  fadhelnet:
